@@ -56,8 +56,6 @@ const Cart = () => {
 
   const isMediumScreen = useMediaQuery(theme.breakpoints.down("md"));
 
-  console.log("currentDate", currentDate)
-
   const buy = () => {
     if(!currentDate) return handleAlertClick()
     const searchUserCart = localStorage.getItem(selectClient.id);
