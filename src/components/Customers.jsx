@@ -9,7 +9,7 @@ import { customers } from "../mocks/customers";
 
 
 const Customers = () => {
-  const { login, isVip } = useContext(InfoContext);
+  const { login } = useContext(InfoContext);
   const navigate = useNavigate();
   const theme = useTheme();
 
@@ -38,7 +38,7 @@ const Customers = () => {
             }}
           >
             <Typography variant={isSmallScreen? "h6":"h2"}>
-              {customer.name} - {isVip(customer) ? "VIP" : "NO VIP"}
+              {customer.name}
             </Typography>
           </Button>
         </Grid>

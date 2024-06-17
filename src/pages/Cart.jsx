@@ -20,6 +20,7 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import LocalMallOutlinedIcon from "@mui/icons-material/LocalMallOutlined";
 import AddIcon from "@mui/icons-material/Add";
 import CheckIcon from "@mui/icons-material/Check";
+import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 import RemoveIcon from "@mui/icons-material/Remove";
 
 const Cart = () => {
@@ -39,25 +40,42 @@ const Cart = () => {
   const [discount, setDiscount] = useState(0);
   const [totalWithoutDiscount, setTotalWithoutDiscount] = useState(0);
   const [totalPrice, setTotalPrice] = useState(0);
+  const [openAlertError, setOpenAlertError] = useState(false);
+  const [openAlertSuccess, setOpenAlertSucces] = useState(false);
+  
   const navigate = useNavigate();
-  const [openAlert, setAlert] = useState(false);
   const theme = useTheme();
 
-  const handleAlertClick = () => {
-    setAlert(true);
+  const handleAlertSucces = () => {
+    setOpenAlertSucces(true);
   };
 
-  const handleAlertClose = (event, reason) => {
+  const handleAlertSuccessClose = (event, reason) => {
     if (reason === "clickaway") {
       return;
     }
-    setAlert(false);
+    setOpenAlertSucces(false);
   };
+
+
+  const handleAlertError = () => {
+    setOpenAlertError(true);
+  };
+
+  const handleAlertErrorClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpenAlertError(false);
+  };
+
+
+
 
   const isMediumScreen = useMediaQuery(theme.breakpoints.down("md"));
 
   const buy = () => {
-    if(!currentDate) return handleAlertClick()
+    if(!currentDate) return handleAlertError()
     const searchUserCart = localStorage.getItem(selectClient.id);
     const buys = {
       id: uuidv4(),
@@ -74,6 +92,7 @@ const Cart = () => {
     localStorage.setItem(selectClient.id, shoppingList);
     deleteCart();
     getCartType();
+    handleAlertSucces()
   };
 
   useEffect(() => {
@@ -130,6 +149,7 @@ const Cart = () => {
               </Grid>
             ) : (
               <Grid textAlign="center">
+                <Typography sx={{color:"primary.main", fontWeight:"bold"}} variant="h2">{cartState}</Typography>
                 <List>
                   {cartItems?.map((item) => (
                     <ListItem
@@ -261,17 +281,33 @@ const Cart = () => {
         </Grid>
       </Grid>
       <Snackbar
-        open={openAlert}
+        open={openAlertError}
         autoHideDuration={5000}
-        onClose={handleAlertClose}
+        onClose={handleAlertErrorClose}
+        anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
+      >
+        <Alert
+          variant="filled"
+          icon={<ErrorOutlineIcon fontSize="inherit" />}
+          severity="error"
+          onClose={handleAlertErrorClose}
+        >
+          You must select a date in the simulator
+        </Alert>
+      </Snackbar>
+      <Snackbar
+        open={openAlertSuccess}
+        autoHideDuration={5000}
+        onClose={handleAlertSuccessClose}
         anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
       >
         <Alert
           icon={<CheckIcon fontSize="inherit" />}
-          severity="error"
-          onClose={handleAlertClose}
+          variant="filled"
+          severity="success"
+          onClose={handleAlertSuccessClose}
         >
-          You must select a date in the simulator
+         Purchase completed successfully
         </Alert>
       </Snackbar>
     </Grid>

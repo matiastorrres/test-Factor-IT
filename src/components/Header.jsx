@@ -67,23 +67,16 @@ const Header = () => {
             maxDate={maxDate}
             value={currentDate}
             onChange={(newValue) => {
-              if (!newValue) {
-                setCurrentDate(null);
-                setErrorText(false);
-              } else {
                 const dateValue = new Date(newValue);
                 if (!isNaN(dateValue)) {
                   if (dateValue < minDate || dateValue > maxDate) {
                     setErrorText(true);
+                    setCurrentDate(null)
                   } else {
                     setCurrentDate(newValue);
                     setErrorText(false);
                   }
-                } else {
-                  setCurrentDate(null);
-                  setErrorText(false);
-                }
-              }
+                } 
             }}
             sx={{
               "& .MuiInputBase-root": {

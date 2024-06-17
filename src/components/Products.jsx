@@ -120,12 +120,13 @@ const Products = () => {
         open={openAlert}
         autoHideDuration={5000}
         onClose={handleAlertClose}
-        anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+        anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
       >
         <Alert
           icon={<CheckIcon fontSize="inherit" />}
           severity="success"
           onClose={handleAlertClose}
+          variant="filled"
         >
           A product was added to your shopping cart
         </Alert>
