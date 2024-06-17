@@ -18,7 +18,6 @@ export const InfoProvider = ({ children }) => {
   const [cartState, setCartState] = useState("commonCart");
 
   const addToCart = (item) => {
-    if (!selectClient) return (location.href = "/login");
 
     const itemExists = cartItems.find((el) => el.id === item.id);
     if (itemExists) {
