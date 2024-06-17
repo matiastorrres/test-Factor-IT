@@ -12,6 +12,7 @@ import {
   Snackbar,
   Alert,
 } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 import CheckIcon from "@mui/icons-material/Check";
 import { InfoContext } from "../context/InfoContext";
 
@@ -27,10 +28,9 @@ const Products = () => {
   const [products, setProducts] = useState(null);
   const [loading, setLoading] = useState(false);
   const [openAlert, setAlert] = useState(false);
+  const navigate = useNavigate();
 
   const { addToCart, selectClient } = useContext(InfoContext);
-
-  console.log("selectClient", selectClient)
 
   const handleAlertClick = () => {
     setAlert(true);
@@ -106,10 +106,9 @@ const Products = () => {
                   variant="contained"
                   size="medium"
                   onClick={() => {
+                    if(!selectClient) return navigate("/login")
                     addToCart(product);
-                    if(selectClient){
-                      handleAlertClick();
-                    }
+                    handleAlertClick();
                   }}
                 >
                   Add to cart
