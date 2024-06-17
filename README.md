@@ -1,6 +1,7 @@
 # TEST-FACTOR-IT
 
 Proyecto: e-commerce
+https://test-factor-it.vercel.app/
 
 Según el historial de compras del mes del usuario o de las fechas promocionables, hay tres tipos de carritos:
 
